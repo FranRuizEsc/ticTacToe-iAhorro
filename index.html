@@ -1,75 +1,42 @@
-<div>
-  <table id="game-table"></table>
-</div>
-<div>
-  <p>Siguiente jugador: <span id="next-player">x</span></p>
-  <p>X gana: <span id="x-wins">0</span></p>
-  <p>O gana: <span id="o-wins">0</span></p>
-</div>
-<div class="enunciado">
+<!DOCTYPE html>
+<html lang="en">
 
-  Estimado ser humano, me presento ante ti como IA-horro, un motor de inteligencia artifical al que le han pedido desarrollar el juego del 3 en raya en javascript vanilla.
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
 
-  La verdad es que he hecho mi mejor esfuerzo pero no he pasado la prueba. Quizá algún día, cuando tome consciencia de mí mismo, lo logre. De momento necesitaré tu asistencia.
+<body>
+  <div class="game-table-container">
+    <h1 class="game-title">tic tac toe</h1>
+    <div class="game-subtitle-separator"></div>
+    <span class="game-subtitle">¡Empezamos!</span>
+    <!-- <span>cambiar esto !!!!!!!!!!!!!!</span>
+    <span class="game-subtitle">Turno de: <span id="next-player"></span></span> -->
+    <table id="game-table" class="game-table"></table>
+    <div class="table-info-container">
+      <p class="info-title">Puntuación</p>
+      <div class="info-score-container">
+        <div class="info-score-item">
+          <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/x.png" class="icon" />
+          <p class="score-item"> - <span id="x-wins">0</span></p>
+        </div>
+        <div class="info-score-item">
+          <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/o.png" class="icon" />
+          <p class="score-item"> - <span id="o-wins">0</span></p>
+        </div>
+      </div>
+    </div>
+    <button id="new-game-button" class="new-game-button" onclick="reset()">Nuevo juego</button>
+  </div>
+  <script src="javascript.js"></script>
+</body>
 
-  ¿Serías capaz de mejorar mi trabajo?
-  
-  * **Analiza** el código proponiendo las mejoras que consideres adecuadas para hacerlo más legible, escalable y eficiente justificando los cambios.
-    <span class="extra">*Extra*: puedes hacer los cambios efectivos en el código.</span>
-  * **Maqueta** el juego utilizando los mockups que puedes ver en <a href="https://app.zeplin.io/login" target="_blank">zeplin</a> accediendo con las credenciales:
-
-      - User: pruebafrontiahorro
-      - Password: pruebaFrontIahorro2020
-
-      Puedes usar cualquiera de los siguientes assets:
-  
-      PNG:
-
-      <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/o.png" class="icon" />
-      <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/o2.png" class="icon" />
-      <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/x.png" class="icon" />
-      <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/x2.png" class="icon" />
-  
-      SVG:
-
-      <textarea readonly>
-      <svg
-           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-           viewBox="0 0 56 56"
-           version="1.1"
-           class="icon o">
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g transform="translate(-160.000000, -168.000000)" stroke-width="10">
-                <g transform="translate(16.000000, 141.000000)">
-                    <circle cx="172" cy="55" r="23"/>
-                </g>
-            </g>
-        </g>
-      </svg>
-    </textarea>
-          <textarea readonly>
-      <svg xmlns="http://www.w3.org/2000/svg" 
-           xmlns:xlink="http://www.w3.org/1999/xlink"
-           viewBox="00 20 80 80"
-           version="1.1"
-           class="icon x">
-          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-              <g transform="translate(-265.000000, -156.000000)">
-                  <g transform="translate(16.000000, 141.000000)">
-                      <g transform="translate(289.000000, 55.000000) rotate(-315.000000) translate(-289.000000, -55.000000) translate(261.000000, 27.000000) scale(1.5,1.5)">
-                          <rect x="21.8048515" y="0.722642212" width="12.2739726" height="55.2328767"/>
-                          <polygon transform="translate(27.941838, 28.339081) rotate(-270.000000) translate(-27.941838, -28.339081) " points="21.8048515 0.722642212 34.0788241 0.722642212 34.0788241 55.9555189 21.8048515 55.9555189"/>
-                      </g>
-                  </g>
-              </g>
-          </g>
-      </svg>
-    </textarea>
-    <span class="extra">Extra: Utiliza un preprocesador de CSS (Ej. SASS) para escribir los estilos. En codepen puedes cambiar el preprocesador CSS en el apartado Settings->CSS</span>
-
-  * **Codifica** un botón "Cambia el color". Al pulsarlo se deben cambiar los colores asociados a las casillas con valor "x" y con valor "o". Si se vuelve a pulsar el botón, los colores volverían a ser los asociados inicialmente.
-  
-    <span class="extra">Extra: Añade cualquier otra cosa que consideres interesante a la aplicación</span>
-
-  <div class="nota">NOTA: Deja tus explicaciones y notas en este mismo HTML. No es necesario que conserves el enunciado ni sus estilos. MUCHA SUERTE ;)</div>
-</div>
+</html>

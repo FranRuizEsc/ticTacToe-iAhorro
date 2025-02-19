@@ -99,23 +99,23 @@ for (let i = 0; i < table.rows.length; i++) {
 }
 
 // Añadir botón "Nuevo juego"
-let newGameButton = document.createElement("button");
-newGameButton.innerHTML = "Nuevo juego";
-newGameButton.onclick = function() {
-  state = [
-      [ null, null, null ],
-      [ null, null, null ],
-      [ null, null, null ]
-  ];
-  currentPlayer = 'x';
-  winner = null;
-  for (let i = 0; i < table.rows.length; i++) {
-      for (let j = 0; j < table.rows[i].cells.length; j++) {
-          table.rows[i].cells[j].innerHTML = "";
-      }
-  }
-  document.getElementById("next-player").innerHTML = currentPlayer;
-}
+// let newGameButton = document.createElement("button");
+// newGameButton.innerHTML = "Nuevo juego";
+// newGameButton.onclick = function() {
+//   state = [
+//       [ null, null, null ],
+//       [ null, null, null ],
+//       [ null, null, null ]
+//   ];
+//   currentPlayer = 'x';
+//   winner = null;
+//   for (let i = 0; i < table.rows.length; i++) {
+//       for (let j = 0; j < table.rows[i].cells.length; j++) {
+//           table.rows[i].cells[j].innerHTML = "";
+//       }
+//   }
+//   document.getElementById("next-player").innerHTML = currentPlayer;
+// }
 
 document.body.prepend(newGameButton);
 

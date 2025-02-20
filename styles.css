@@ -1,3 +1,5 @@
+/* Crear variables para colores y margenes tipografias .... Y CAMBIAR A SCSS */
+
 html {
   height: 100%;
   overflow: hidden;
@@ -14,7 +16,6 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   height: 728px;
   width: 375px;
   border: 1px solid #e5e5e5;
@@ -26,10 +27,10 @@ body {
 }
 
 .new-game-button {
-  margin: 10px;
+  margin: 14px 10px 0 10px;  
   padding: 10px;
   font-size: 1em;
-  background-color: #29ddb9; /* Green */
+  background-color: #29ddb9;
   color: white;
   border: none;
   cursor: pointer;
@@ -41,6 +42,14 @@ body {
   letter-spacing: -0.23px;
   border-radius: 3px;
 }
+
+.new-game-button:disabled {
+  background-color: #dfe0e0;
+  color: white;
+  cursor: not-allowed;
+}
+
+
 tbody {
   display: flex;
   flex-wrap: wrap;
@@ -66,19 +75,19 @@ td {
 }
 
 .x-cell {
-  background-color: #90EE90; /* verde claro */
+  background-color: #e5fffa;
 }
 
 .o-cell {
-  background-color: #FFB6B6; /* rojo claro */
+  background-color: #fff3f2;
 }
 
 .x-cell-alternative {
-  background-color: #FFFF99; /* amarillo claro */
+  background-color: #faf3db;
 }
 
 .o-cell-alternative {
-  background-color: #E0E0E0; /* gris claro */
+  background-color: #edf0f5;
 }
 
 img {
@@ -119,6 +128,12 @@ button:hover {
   margin-bottom: 26px;
 }
 
+.player-icon{
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
 .game-subtitle-separator {
   width: 344px;
   height: 1px;
@@ -126,7 +141,26 @@ button:hover {
 }
 
 .table-info-container {
-  margin-top: 30px;
+  margin-top: 16px;
+  width: 100%;
+}
+.toggle-images-container {
+  display: flex;
+  justify-content: end;  
+}
+
+.toggle-images-button {
+  font-family: "Montserrat", serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #29ddb9;
+  margin-right: 16px;
+  height: 32px;
+  width: 109px;
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1px solid #29ddb9;
+  cursor: pointer;
 }
 
 .info-title {
@@ -136,11 +170,16 @@ button:hover {
   letter-spacing: -0.25px;
   height: 24px;
   text-align: center;
+  margin-top: 6px;
 }
+
+
 
 .info-score-container {
   display: flex;
   gap: 50px;
+  justify-content: center;
+  margin-top: -20px;
 }
 
 .info-score-item {

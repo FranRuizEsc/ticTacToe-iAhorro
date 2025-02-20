@@ -17,11 +17,13 @@
   <div class="game-table-container">
     <h1 class="game-title">tic tac toe</h1>
     <div class="game-subtitle-separator"></div>
-    <span class="game-subtitle">¡Empezamos!</span>
-    <!-- <span>cambiar esto !!!!!!!!!!!!!!</span>
-    <span class="game-subtitle">Turno de: <span id="next-player"></span></span> -->
+    <span id="start-game-subtitle" class="game-subtitle">¡Empezamos!</span>
+    <span id="next-player-subtitle" class="game-subtitle">Turno de: <span id="next-player"></span></span>
     <table id="game-table" class="game-table"></table>
     <div class="table-info-container">
+      <div class="toggle-images-container">
+        <button id="toggle-images-button" class="toggle-images-button" onclick="toggleImages()">Cambia el color</button>
+      </div>
       <p class="info-title">Puntuación</p>
       <div class="info-score-container">
         <div class="info-score-item">
@@ -34,7 +36,6 @@
         </div>
       </div>
     </div>
-    <button id="toggle-images-button" class="new-game-button" onclick="toggleImages()">Cambiar imágenes</button>
     <button id="new-game-button" class="new-game-button" onclick="reset()">Nuevo juego</button>
   </div>
   <script src="javascript.js"></script>

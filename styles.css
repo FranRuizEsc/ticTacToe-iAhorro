@@ -65,6 +65,22 @@ td {
   vertical-align: middle;
 }
 
+.x-cell {
+  background-color: #90EE90; /* verde claro */
+}
+
+.o-cell {
+  background-color: #FFB6B6; /* rojo claro */
+}
+
+.x-cell-alternative {
+  background-color: #FFFF99; /* amarillo claro */
+}
+
+.o-cell-alternative {
+  background-color: #E0E0E0; /* gris claro */
+}
+
 img {
   width: 56px;
   height: 56px;

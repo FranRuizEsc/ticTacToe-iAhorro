@@ -1,14 +1,15 @@
-// let state = [
-//     [ null, null, null ],
-//     [ null, null, null ],
-//     [ null, null, null ]
-// ];
-
 const table = document.getElementById("game-table");
 const xImage =
   "http://cdn.iahorro.com/internal-resources/it-technical-test/x.png";
 const oImage =
   "http://cdn.iahorro.com/internal-resources/it-technical-test/o.png";
+const alternativeXImage =
+  "http://cdn.iahorro.com/internal-resources/it-technical-test/x2.png";
+const alternativeOImage =
+  "http://cdn.iahorro.com/internal-resources/it-technical-test/o2.png";
+
+
+let isAlternativeImages = false;
 const newGameButton = document.getElementById("new-game-button");
 
 // ? Crea un nuevo tablero de juego
@@ -18,6 +19,39 @@ let currentPlayer = "x";
 let winner = null;
 let xWins = 0;
 let oWins = 0;
+
+
+function getCurrentImages() {
+  return isAlternativeImages 
+    ? { x: alternativeXImage, o: alternativeOImage }
+    : { x: xImage, o: oImage };
+}
+
+function toggleImages() {
+  isAlternativeImages = !isAlternativeImages;
+  const images = getCurrentImages();
+  
+  // Actualizar las imágenes y colores en el tablero
+  Array.from(table.getElementsByTagName("td")).forEach(cell => {
+    const img = cell.querySelector("img");
+    if (img) {
+      const player = img.alt;
+      img.src = player === "x" ? images.x : images.o;
+      
+      // Actualizar las clases de color
+      cell.classList.remove('x-cell', 'o-cell', 'x-cell-alternative', 'o-cell-alternative');
+      if (isAlternativeImages) {
+        cell.classList.add(player === "x" ? 'x-cell-alternative' : 'o-cell-alternative');
+      } else {
+        cell.classList.add(player === "x" ? 'x-cell' : 'o-cell');
+      }
+    }
+  });
+
+  // Actualizar las imágenes del marcador
+  document.querySelector(".info-score-item:first-child img").src = images.x;
+  document.querySelector(".info-score-item:last-child img").src = images.o;
+}
 
 // ? Función para crear un nuevo tablero de juego
 function createNewStateTable() {
@@ -38,15 +72,6 @@ function populate(state) {
       cell.innerHTML = cellData || null;
     });
   });
-
-  // let table = document.getElementById("game-table");
-  // for (let i = 0; i < state.length; i++) {
-  //   let row = table.insertRow(i);
-  //   for (let j = 0; j < state[i].length; j++) {
-  //     let cell = row.insertCell(j);
-  //     cell.innerHTML = state[i][j];
-  //   }
-  // }
 }
 
 // Función para determinar qué jugador debe ser el siguiente
@@ -61,24 +86,6 @@ function nextPlayer(state) {
   
   return xCount === oCount ? "x" : "o";
 
-
-
-  // for (let i = 0; i < state.length; i++) {
-  //   for (let j = 0; j < state[i].length; j++) {
-  //     if (state[i][j] === "x") {
-  //       xCount++;
-  //     } else if (state[i][j] === "o") {
-  //       oCount++;
-  //     }
-  //   }
-  // }
-
-
-  // if (xCount === oCount) {
-  //   return "x";
-  // } else {
-  //   return "o";
-  // }
 }
 
 // Función para determinar si hay un ganador en el juego actual
@@ -94,13 +101,6 @@ function findWinner(state) {
       winner = row[0];
     }
   })
-
-  // for (let i = 0; i < state.length; i++) {
-  //   if (state[i][0] === state[i][1] && state[i][1] === state[i][2]) {
-  //     winner = state[i][0];
-  //   }
-  // }
-
 
 
   // ? Chequear columnas
@@ -151,26 +151,8 @@ for (let i = 0; i < table.rows.length; i++) {
   }
 }
 
-// Añadir botón "Nuevo juego"
-// let newGameButton = document.createElement("button");
-// newGameButton.innerHTML = "Nuevo juego";
-// newGameButton.onclick = function() {
-//     state = [
-//         [ null, null, null ],
-//         [ null, null, null ],
-//         [ null, null, null ]
-//     ];
-//     currentPlayer = 'x';
-//     winner = null;
-//     for (let i = 0; i < table.rows.length; i++) {
-//         for (let j = 0; j < table.rows[i].cells.length; j++) {
-//             table.rows[i].cells[j].innerHTML = "";
-//         }
-//     }
-//     document.getElementById("next-player").innerHTML = currentPlayer;
-// }
-
-// document.body.prepend(newGameButton);
+// ? He borrado la creación del botón por que creo que es mejor hacer en html por que siempre va a ser visible
+// ? También he borrado la funcionalidad por que esta duplicada enla función reset
 
 function play() {
   winner = findWinner(stateTable);
@@ -194,13 +176,24 @@ function play() {
 // Función para manejar el evento onClick
 function onClick() {
   if (this.innerHTML === "" && winner === null) {
+
+    const currentImages = getCurrentImages();
     this.innerHTML = `<img src="${
-      currentPlayer === "x" ? xImage : oImage
+      currentPlayer === "x" ? currentImages.x : currentImages.o
     }" alt="${currentPlayer}">`;
-    // this.innerHTML = currentPlayer;
+    
+    // Añadir la clase de color correspondiente
+    this.classList.remove('x-cell', 'o-cell', 'x-cell-alternative', 'o-cell-alternative');
+    if (isAlternativeImages) {
+      this.classList.add(currentPlayer === "x" ? 'x-cell-alternative' : 'o-cell-alternative');
+    } else {
+      this.classList.add(currentPlayer === "x" ? 'x-cell' : 'o-cell');
+    }
+
     let row = this.parentNode.rowIndex;
     let col = this.cellIndex;
     stateTable[row][col] = currentPlayer;
+
     winner = findWinner(stateTable);
     if (winner) {
       this.classList.add("winner");
@@ -224,21 +217,8 @@ function reset() {
   // ? Convierto los elementos td en un array y recorro cada uno para limpiarlos
   Array.from(table.getElementsByTagName("td")).forEach((cell) => {
     cell.innerHTML = "";
-    cell.classList.remove("winner");
+    cell.classList.remove("winner", 'x-cell', 'o-cell', 'x-cell-alternative', 'o-cell-alternative');
   });
-
-  //   let state = [
-  //     [ null, null, null ],
-  //     [ null, null, null ],
-  //     [ null, null, null ]
-  // ];
-
-  // for (let i = 0; i < table.rows.length; i++) {
-  //   for (let j = 0; j < table.rows[i].cells.length; j++) {
-  //     table.rows[i].cells[j].innerHTML = "";
-  //     table.rows[i].cells[j].classList.remove("winner");
-  //   }
-  // }
 
   document.getElementById("next-player").innerHTML = currentPlayer;
 }

@@ -27,7 +27,7 @@ body {
 }
 
 .new-game-button {
-  margin: 14px 10px 0 10px;  
+  margin: 14px 10px 0 10px;
   padding: 10px;
   font-size: 1em;
   background-color: #29ddb9;
@@ -48,7 +48,6 @@ body {
   color: white;
   cursor: not-allowed;
 }
-
 
 tbody {
   display: flex;
@@ -124,14 +123,23 @@ button:hover {
   font-family: "Montserrat", serif;
   font-size: 12px;
   font-weight: 700;
+}
+
+.start {
   margin-top: 24px;
   margin-bottom: 26px;
 }
 
-.player-icon{
-  width: 16px;
-  height: 16px;
+.next-player {
+  margin-top: 21px;
+  margin-bottom: 23px;
+}
+
+.player-icon {
+  width: 24px;
+  height: 24px;
   vertical-align: middle;
+  margin-left: 10px;
 }
 
 .game-subtitle-separator {
@@ -146,7 +154,7 @@ button:hover {
 }
 .toggle-images-container {
   display: flex;
-  justify-content: end;  
+  justify-content: end;
 }
 
 .toggle-images-button {
@@ -172,8 +180,6 @@ button:hover {
   text-align: center;
   margin-top: 6px;
 }
-
-
 
 .info-score-container {
   display: flex;

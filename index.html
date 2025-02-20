@@ -1,44 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-</head>
-
-<body>
-  <div class="game-table-container">
-    <h1 class="game-title">tic tac toe</h1>
-    <div class="game-subtitle-separator"></div>
-    <span id="start-game-subtitle" class="game-subtitle">¡Empezamos!</span>
-    <span id="next-player-subtitle" class="game-subtitle">Turno de: <span id="next-player"></span></span>
-    <table id="game-table" class="game-table"></table>
-    <div class="table-info-container">
-      <div class="toggle-images-container">
-        <button id="toggle-images-button" class="toggle-images-button" onclick="toggleImages()">Cambia el color</button>
-      </div>
-      <p class="info-title">Puntuación</p>
-      <div class="info-score-container">
-        <div class="info-score-item">
-          <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/x.png" class="icon" />
-          <p class="score-item"> - <span id="x-wins">0</span></p>
+  <body>
+    <div class="game-table-container">
+      <h1 class="game-title">tic tac toe</h1>
+      <div class="game-subtitle-separator"></div>
+      <span id="start-game-subtitle" class="game-subtitle start"
+        >¡Empezamos!</span
+      >
+      <span id="next-player-subtitle" class="game-subtitle next-player"
+        >Turno de: <span id="next-player"></span
+      ></span>
+      <table id="game-table" class="game-table"></table>
+      <div class="table-info-container">
+        <div class="toggle-images-container">
+          <button
+            id="toggle-images-button"
+            class="toggle-images-button"
+            onclick="toggleImages()"
+          >
+            Cambia el color
+          </button>
         </div>
-        <div class="info-score-item">
-          <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/o.png" class="icon" />
-          <p class="score-item"> - <span id="o-wins">0</span></p>
+        <p class="info-title">Puntuación</p>
+        <div class="info-score-container">
+          <div class="info-score-item">
+            <img
+              src="http://cdn.iahorro.com/internal-resources/it-technical-test/x.png"
+              class="icon"
+            />
+            <p class="score-item">- <span id="x-wins">0</span></p>
+          </div>
+          <div class="info-score-item">
+            <img
+              src="http://cdn.iahorro.com/internal-resources/it-technical-test/o.png"
+              class="icon"
+            />
+            <p class="score-item">- <span id="o-wins">0</span></p>
+          </div>
         </div>
       </div>
+      <button id="new-game-button" class="new-game-button" onclick="reset()">
+        Nuevo juego
+      </button>
     </div>
-    <button id="new-game-button" class="new-game-button" onclick="reset()">Nuevo juego</button>
-  </div>
-  <script src="javascript.js"></script>
-</body>
-
+    <script src="javascript.js"></script>
+  </body>
 </html>

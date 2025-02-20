@@ -125,12 +125,12 @@ button:hover {
   font-weight: 700;
 }
 
-.start {
+.game-subtitle--start {
   margin-top: 24px;
   margin-bottom: 26px;
 }
 
-.next-player {
+.game-subtitle--next-player {
   margin-top: 21px;
   margin-bottom: 23px;
 }

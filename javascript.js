@@ -24,6 +24,10 @@ const newGameButton = document.getElementById("new-game-button");
 // ? constante para el span de siguiente jugador
 const nextPlayerElement = document.getElementById("next-player");
 
+const winDialog = document.getElementById("win-dialog");
+const winnerContent = document.getElementById("winner-content");
+const tieContent = document.getElementById("tie-dialog-container");
+
 let isAlternativeImages = false;
 
 // ? Crea un nuevo tablero de juego
@@ -48,6 +52,7 @@ function updateNextPlayerDisplay() {
   nextPlayerElement.innerHTML = `<img src="${currentImages[currentPlayer]}" class="player-icon">`;
 }
 
+// ? segun el estado de isAlternativeImages, devuelvo las imágenes alternativas o las normales
 // * Función para obtener las imágenes actuales
 function getCurrentImages() {
   return isAlternativeImages
@@ -163,7 +168,7 @@ function initializeGameBoard() {
     for (let j = 0; j < table.rows[i].cells.length; j++) {
       // ? Asocio el evento onClick a la función handleClick por que he adaptado a la nueva funcionalidad y hace lo mismo
       // ? así no duplico código y es más escalable y reutilizable
-      table.rows[i].cells[j].onclick = handleClick;    
+      table.rows[i].cells[j].onclick = handleClick;
     }
   }
 }
@@ -182,15 +187,42 @@ initializeGameBoard();
 // ? He borrado la creación del botón por que creo que es mejor hacer en html por que siempre va a ser visible
 // ? También he borrado la funcionalidad por que esta duplicada enla función reset
 
+// * Función que muestra el diálogo de ganador
+function showDialogWinner() {
+  // ? Ocultar el contenido de empate y mostrar el de ganador
+  winnerContent.style.display = "block";
+  tieContent.style.display = "none";
+  
+  const images = getCurrentImages();
+  winDialog.querySelector("img").src = winner === "x" ? images.x : images.o;
+
+  winDialog.showModal();
+}
+
+// * Función que muestra el diálogo de empate
+function showDialogTie() {  
+  // ? Ocultar el contenido de ganador y mostrar el de empate
+  winnerContent.style.display = "none";
+  tieContent.style.display = "block";
+
+  winDialog.showModal();
+}
+
+// * Función que cierra el diálogo y reinicia el juego
+function closeDialog() {
+  winDialog.close();
+  resetGame();
+}
+
 // * Función para determinar si hay un ganador o un empate
 function play() {
   winner = findWinner(stateTable);
   if (winner) {
-    alert(winner + " wins!");    
     winner === "x" ? xWins++ : oWins++;
     updateScore();
+    showDialogWinner();
   } else if (checkTie()) {
-    alert("Tie!");
+    showDialogTie();
   } else {
     currentPlayer = nextPlayer(stateTable);
     nextPlayerElement.innerHTML = currentPlayer;
@@ -252,7 +284,7 @@ function handleClick() {
 }
 
 // * Función para reiniciar el juego
-function reset() {
+function resetGame() {
   //? resetea el tablero de juego
   stateTable = createNewStateTable();
   currentPlayer = "x";

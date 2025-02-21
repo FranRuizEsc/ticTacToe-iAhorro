@@ -1,54 +1,30 @@
-// ? constantes para el tablero de juego
 const table = document.getElementById("game-table");
 
-// ? constantes para las imágenes del tablero
-const xImage =
-  "http://cdn.iahorro.com/internal-resources/it-technical-test/x.png";
-const oImage =
-  "http://cdn.iahorro.com/internal-resources/it-technical-test/o.png";
-const alternativeXImage =
-  "http://cdn.iahorro.com/internal-resources/it-technical-test/x2.png";
-const alternativeOImage =
-  "http://cdn.iahorro.com/internal-resources/it-technical-test/o2.png";
+const xImage = "http://cdn.iahorro.com/internal-resources/it-technical-test/x.png";
+const oImage = "http://cdn.iahorro.com/internal-resources/it-technical-test/o.png";
+const alternativeXImage = "http://cdn.iahorro.com/internal-resources/it-technical-test/x2.png";
+const alternativeOImage = "http://cdn.iahorro.com/internal-resources/it-technical-test/o2.png";
 
-// ? constantes para los subtulos del tablero
+
 const startSubtitle = document.getElementById("start-game-subtitle");
 const nextPlayerSubtitle = document.getElementById("next-player-subtitle");
-
 const xWinsElement = document.getElementById("x-wins");
 const oWinsElement = document.getElementById("o-wins");
-
-// ? constante para el botón de nuevo juego
 const newGameButton = document.getElementById("new-game-button");
-
-// ? constante para el span de siguiente jugador
 const nextPlayerElement = document.getElementById("next-player");
-
-const dialog = document.getElementById('dialog');
-
+const dialog = document.getElementById("dialog");
 
 let isAlternativeImages = false;
-
-// ? Crea un nuevo tablero de juego
 let stateTable = createNewStateTable();
-
 let currentPlayer = "x";
 let winner = null;
 let xWins = 0;
 let oWins = 0;
 
-// * Función para inicializar los subtitulos y mostrar !empezamos!
-function initializeSubtitles() {
-  startSubtitle.style.display = "block";
-  nextPlayerSubtitle.style.display = "none";
-}
 
-// * Función para actualizar el subtitulo de siguiente jugador y mostrar la imagen del jugador
-function updateNextPlayerDisplay() {
-  startSubtitle.style.display = "none";
-  nextPlayerSubtitle.style.display = "block";
-  const currentImages = getCurrentImages();
-  nextPlayerElement.innerHTML = `<img src="${currentImages[currentPlayer]}" class="player-icon">`;
+// * Función para crear un nuevo tablero de juego
+function createNewStateTable() {
+  return Array.from({ length: 3 }, () => Array(3).fill(null));
 }
 
 // ? segun el estado de isAlternativeImages, devuelvo las imágenes alternativas o las normales
@@ -79,25 +55,24 @@ function toggleImages() {
   document.querySelector(".info-score-item:last-child img").src = images.o;
 }
 
-// * Función para crear un nuevo tablero de juego
-function createNewStateTable() {
-  return Array.from({ length: 3 }, () => Array(3).fill(null));
+// * Función para borrar las clases de las celdas
+function clearCellClasses(cell) {
+  cell.classList.remove(
+    "winner",
+    "x-cell",
+    "o-cell",
+    "x-cell-alternative",
+    "o-cell-alternative"
+  );
 }
 
-// * Función para rellenar el tablero según el estado del juego
-function populate(state) {
-  if (!table) {
-    console.log("No se ha encontrado game-table");
-    return;
-  }
-
-  state.forEach((rowData, i) => {
-    let row = table.insertRow(i);
-    rowData.forEach((cellData, j) => {
-      let cell = row.insertCell(j);
-      cell.innerHTML = cellData || null;
-    });
-  });
+// * Función para actualizar el color de la celda
+function updateCellColor(cell, player) {
+  clearCellClasses(cell);
+  const colorClass = isAlternativeImages
+    ? `${player}-cell-alternative`
+    : `${player}-cell`;
+  cell.classList.add(colorClass);
 }
 
 // * Función para determinar qué jugador debe ser el siguiente
@@ -111,6 +86,47 @@ function nextPlayer(state) {
   oCount = state.flat().filter((cell) => cell === "o").length;
 
   return xCount === oCount ? "x" : "o";
+}
+
+// * Función para determinar si hay un empate
+// ! Con el metodo flat() convierto el tablero en un array plano
+// ! El método .every() verifica si todos los elementos de un array cumplen una condición.
+// ! Devuelve true si todos cumplen la condición, y false si al menos uno no la cumple.s
+
+function checkTie() {
+  // ? Con every comprueba que todas las celdas sean distintas de null y devuelve true si es así
+  return stateTable.flat().every((cell) => cell !== null);
+}
+
+
+// * Función para rellenar el tablero según el estado del juego
+function populate(state) {
+  if (!table) {
+    console.log("No se ha encontrado game-table");
+    return;
+  }
+
+  state.forEach((rowData, rowIndex) => {
+    let row = table.insertRow(rowIndex);
+    rowData.forEach((cellData, cellIndex) => {
+      let cell = row.insertCell(cellIndex);
+      cell.innerHTML = cellData || null;
+    });
+  });
+}
+
+// * Función para inicializar los subtitulos y mostrar !empezamos!
+function initializeSubtitles() {
+  startSubtitle.style.display = "block";
+  nextPlayerSubtitle.style.display = "none";
+}
+
+// * Función para actualizar el subtitulo de siguiente jugador y mostrar la imagen del jugador
+function updateNextPlayerDisplay() {
+  startSubtitle.style.display = "none";
+  nextPlayerSubtitle.style.display = "block";
+  const currentImages = getCurrentImages();
+  nextPlayerElement.innerHTML = `<img src="${currentImages[currentPlayer]}" class="player-icon">`;
 }
 
 // * Función para determinar si hay un ganador en el juego actual
@@ -158,57 +174,27 @@ function updateScore() {
   oWinsElement.innerHTML = oWins;
 }
 
-// ? Creao esta función porque es buena práctica no tener el código de inicialización en el global
-// ? Además es más legible y fácil de mantener
-
-// * Asociar eventos a cada casilla del tablero
-function initializeGameBoard() {
-  for (let i = 0; i < table.rows.length; i++) {
-    for (let j = 0; j < table.rows[i].cells.length; j++) {
-      // ? Asocio el evento onClick a la función handleClick por que he adaptado a la nueva funcionalidad y hace lo mismo
-      // ? así no duplico código y es más escalable y reutilizable
-      table.rows[i].cells[j].onclick = handleClick;
-    }
-  }
-}
-
-// ? Rellenar el tablero según el estado del juego
-populate(stateTable);
-
-// ? Deshabilitar el botón de nuevo juego
-newGameButton.disabled = true;
-
-// ? Inicializar los subtitulos
-initializeSubtitles();
-
-initializeGameBoard();
-
-// ? He borrado la creación del botón por que creo que es mejor hacer en html por que siempre va a ser visible
-// ? También he borrado la funcionalidad por que esta duplicada enla función reset
-
 // * Función para mostrar el diálogo según el ganador
 function showDialog(winner) {
-// ? No hago estas constantes locales por que no se van a usar fuera de la función
-  const dialogTitle = document.getElementById('dialog-title');
-  const dialogSubtitle = document.getElementById('dialog-subtitle');
-  const dialogIcon = document.getElementById('dialog-icon');
+  // ? No hago estas constantes globales por que no se van a usar fuera de la función
+  const dialogTitle = document.getElementById("dialog-title");
+  const dialogSubtitle = document.getElementById("dialog-subtitle");
+  const dialogIcon = document.getElementById("dialog-icon");
   const images = getCurrentImages();
   const image = dialog.querySelector("img");
-  
-  
-  if(winner) {
-    dialogTitle.innerHTML = '¡Felicidades!';
-    dialogSubtitle.innerHTML = 'Has ganado el juego.';
-    dialogIcon.classList.add('fas', 'fa-glass-cheers');
+
+  if (winner) {
+    dialogTitle.innerHTML = "¡Felicidades!";
+    dialogSubtitle.innerHTML = "Has ganado el juego.";
+    dialogIcon.classList.add("fas", "fa-glass-cheers");
     image.src = winner === "x" ? images.x : images.o;
   } else {
-    dialogTitle.innerHTML = '¡Empate!';
-    dialogSubtitle.innerHTML = 'Inténtalo de nuevo.';
-    dialogIcon.classList.add('fa-solid', 'fa-scale-balanced');    
+    dialogTitle.innerHTML = "¡Empate!";
+    dialogSubtitle.innerHTML = "Inténtalo de nuevo.";
+    dialogIcon.classList.add("fa-solid", "fa-scale-balanced");
     image.style.display = "none";
-  }  
+  }
   dialog.showModal();
-
 }
 
 // * Función que cierra el diálogo y reinicia el juego
@@ -233,27 +219,7 @@ function play() {
   }
 }
 
-// * Función para borrar las clases de las celdas
-function clearCellClasses(cell) {
-  cell.classList.remove(
-    "winner",
-    "x-cell",
-    "o-cell",
-    "x-cell-alternative",
-    "o-cell-alternative"
-  );
-}
-
-// * Función para actualizar el color de la celda
-function updateCellColor(cell, player) {
-  clearCellClasses(cell);
-  const colorClass = isAlternativeImages
-    ? `${player}-cell-alternative`
-    : `${player}-cell`;
-  cell.classList.add(colorClass);
-}
-
-// TODOFunción para manejar el evento onClick
+// TODO Función para manejar el evento onClick
 function handleClick() {
   newGameButton.disabled = false;
   if (this.innerHTML === "" && winner === null) {
@@ -308,23 +274,19 @@ function resetGame() {
   nextPlayerElement.innerHTML = currentPlayer;
 }
 
-// * Función para determinar si hay un empate
-// ! Con el metodo flat() convierto el tablero en un array plano
-// ! El método .every() verifica si todos los elementos de un array cumplen una condición.
-// ! Devuelve true si todos cumplen la condición, y false si al menos uno no la cumple.
-
-function checkTie() {
-  // ? Con every comprueba que todas las celdas sean distintas de null y devuelve true si es así
-  return stateTable.flat().every((cell) => cell !== null);
+// * Asociar eventos a cada casilla del tablero
+function initializeGameBoard() {
+  for (let i = 0; i < table.rows.length; i++) {
+    for (let j = 0; j < table.rows[i].cells.length; j++) {
+      // ? Asocio el evento onClick a la función handleClick por que he adaptado a la nueva funcionalidad y hace lo mismo
+      // ? así no duplico código y es más escalable y reutilizable
+      table.rows[i].cells[j].onclick = handleClick;
+    }
+  }
 }
 
-// ? He borrado el código por que ya no es necesario
-// Añadir eventos onClick a cada casilla del tablero
-// for (let i = 0; i < table.rows.length; i++) {
-//   for (let j = 0; j < table.rows[i].cells.length; j++) {
-//     table.rows[i].cells[j].onclick = onClick;
-//   }
-// }
 
-// ? Ya no es necesario añadir evento onClick al botón "Nuevo juego"
-// newGameButton.onclick = reset;
+populate(stateTable);
+newGameButton.disabled = true;
+initializeSubtitles();
+initializeGameBoard();

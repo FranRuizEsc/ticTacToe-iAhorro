@@ -110,8 +110,10 @@ function populate(state) {
 
   state.forEach((rowData, rowIndex) => {
     let row = table.insertRow(rowIndex);
+    row.classList.add('game-row');
     rowData.forEach((cellData, cellIndex) => {
       let cell = row.insertCell(cellIndex);
+      cell.classList.add('game-cell');
       cell.innerHTML = cellData || null;
     });
   });

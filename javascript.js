@@ -35,6 +35,17 @@ function getCurrentImages() {
     : { x: xImage, o: oImage };
 }
 
+// * Función para borrar las clases de las celdas
+function clearCellClasses(cell) {
+  cell.classList.remove(
+    "winner",
+    "x-cell",
+    "o-cell",
+    "x-cell-alternative",
+    "o-cell-alternative"
+  );
+}
+
 // * Función para cambiar las imágenes
 function toggleImages() {
   isAlternativeImages = !isAlternativeImages;
@@ -53,18 +64,9 @@ function toggleImages() {
   // ? Actualizar las imágenes del marcador
   document.querySelector(".info-score-item:first-child img").src = images.x;
   document.querySelector(".info-score-item:last-child img").src = images.o;
+  nextPlayerElement.innerHTML = `<img src="${images[currentPlayer]}" class="player-icon">`;
 }
 
-// * Función para borrar las clases de las celdas
-function clearCellClasses(cell) {
-  cell.classList.remove(
-    "winner",
-    "x-cell",
-    "o-cell",
-    "x-cell-alternative",
-    "o-cell-alternative"
-  );
-}
 
 // * Función para actualizar el color de la celda
 function updateCellColor(cell, player) {
@@ -205,6 +207,7 @@ function closeDialog() {
 
 // * Función para determinar si hay un ganador o un empate
 function play() {
+  if(!stateTable) return
   winner = findWinner(stateTable);
   if (winner) {
     winner === "x" ? xWins++ : oWins++;
@@ -219,12 +222,12 @@ function play() {
   }
 }
 
-// TODO Función para manejar el evento onClick
+// * Función para manejar el evento onClick
 function handleClick() {
+  if(!stateTable) return
+
   newGameButton.disabled = false;
   if (this.innerHTML === "" && winner === null) {
-    // ? oculta el subtitulo de inicio y muestra el de siguiente jugador
-    updateNextPlayerDisplay();
     const currentImages = getCurrentImages();
     this.innerHTML = `<img src="${
       currentPlayer === "x" ? currentImages.x : currentImages.o
@@ -234,21 +237,10 @@ function handleClick() {
 
     let row = this.parentNode.rowIndex;
     let col = this.cellIndex;
+
     stateTable[row][col] = currentPlayer;
 
-    winner = findWinner(stateTable);
-    if (winner) {
-      this.classList.add("winner");
-      play();
-      updateScore();
-    } else if (checkTie()) {
-      play();
-      updateScore();
-    } else {
-      currentPlayer = nextPlayer(stateTable);
-      nextPlayerElement.innerHTML = currentPlayer;
-      updateNextPlayerDisplay();
-    }
+    play()
   }
 }
 
@@ -276,6 +268,7 @@ function resetGame() {
 
 // * Asociar eventos a cada casilla del tablero
 function initializeGameBoard() {
+  if(!table) return
   for (let i = 0; i < table.rows.length; i++) {
     for (let j = 0; j < table.rows[i].cells.length; j++) {
       // ? Asocio el evento onClick a la función handleClick por que he adaptado a la nueva funcionalidad y hace lo mismo

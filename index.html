@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
@@ -47,27 +47,18 @@
     </button>
   </div>
 
-  <dialog id="win-dialog" class="win-dialog">
-    <div id="winner-content" class="win-dialog-container">
+  <dialog id="dialog" class="dialog">
+    <div  class="dialog-container">
       <div class="dialog-wrapper">
-        <h2 class="dialog-title">¡Felicidades!</h2>
-        <img src="" alt="Ganador" class="win-dialog-image" />
+        <h2 id="dialog-title" class="dialog-title"></h2>
+        <img id="dialog-image" src="" alt="Ganador" class="win-dialog-image" />
       </div>
-      <i class="fas fa-glass-cheers dialog-icon"></i>
-      <p class="dialog-subtitle" id="win-dialog-subtitle">
-        Has ganado el juego.
-      </p>
+      <i id="dialog-icon" class="dialog-icon"></i>
+      <p id="dialog-subtitle" class="dialog-subtitle"></p>
     </div>
-    <div id="tie-dialog-container" class="tie-dialog-container">
-      <div class="dialog-wrapper">
-        <h2 class="dialog-title">¡Empate!</h2>
-      </div>
-      <i class="fa-solid fa-scale-balanced dialog-icon"></i>
-      <p class="dialog-subtitle">Inténtalo de nuevo</p>
-    </div>
-    <div class="win-dialog-button-container">
-      <button class="win-dialog-button" onclick="closeDialog()">
-        Cerrar
+    <div class="dialog-button-container">
+      <button class="dialog-button" onclick="closeDialog()">
+        Jugar otra
       </button>
     </div>
   </dialog>

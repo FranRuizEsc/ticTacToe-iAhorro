@@ -208,7 +208,7 @@ button:hover {
 }
 
 
-.win-dialog {
+.dialog {
   border-radius: 8px;
   border: 1px solid #29ddb9;
 }
@@ -248,13 +248,13 @@ i.dialog-icon {
   letter-spacing: -0.25px;
 }
 
-.win-dialog-button-container {
+.dialog-button-container {
   display: flex;
   justify-content: center;
   margin-top: 24px;
 }
 
-.win-dialog-button {
+.dialog-button {
   font-family: "Montserrat", serif;
   font-size: 11px;
   font-weight: 700;
@@ -265,6 +265,10 @@ i.dialog-icon {
   border-radius: 2px;
   border: 1px solid #29ddb9;
   cursor: pointer;
+}
+
+.dialog-button:focus {
+  outline: none;
 }
 
 

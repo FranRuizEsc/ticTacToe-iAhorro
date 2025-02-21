@@ -24,9 +24,8 @@ const newGameButton = document.getElementById("new-game-button");
 // ? constante para el span de siguiente jugador
 const nextPlayerElement = document.getElementById("next-player");
 
-const winDialog = document.getElementById("win-dialog");
-const winnerContent = document.getElementById("winner-content");
-const tieContent = document.getElementById("tie-dialog-container");
+const dialog = document.getElementById('dialog');
+
 
 let isAlternativeImages = false;
 
@@ -187,30 +186,34 @@ initializeGameBoard();
 // ? He borrado la creación del botón por que creo que es mejor hacer en html por que siempre va a ser visible
 // ? También he borrado la funcionalidad por que esta duplicada enla función reset
 
-// * Función que muestra el diálogo de ganador
-function showDialogWinner() {
-  // ? Ocultar el contenido de empate y mostrar el de ganador
-  winnerContent.style.display = "block";
-  tieContent.style.display = "none";
-  
+// * Función para mostrar el diálogo según el ganador
+function showDialog(winner) {
+// ? No hago estas constantes locales por que no se van a usar fuera de la función
+  const dialogTitle = document.getElementById('dialog-title');
+  const dialogSubtitle = document.getElementById('dialog-subtitle');
+  const dialogIcon = document.getElementById('dialog-icon');
   const images = getCurrentImages();
-  winDialog.querySelector("img").src = winner === "x" ? images.x : images.o;
+  const image = dialog.querySelector("img");
+  
+  
+  if(winner) {
+    dialogTitle.innerHTML = '¡Felicidades!';
+    dialogSubtitle.innerHTML = 'Has ganado el juego.';
+    dialogIcon.classList.add('fas', 'fa-glass-cheers');
+    image.src = winner === "x" ? images.x : images.o;
+  } else {
+    dialogTitle.innerHTML = '¡Empate!';
+    dialogSubtitle.innerHTML = 'Inténtalo de nuevo.';
+    dialogIcon.classList.add('fa-solid', 'fa-scale-balanced');    
+    image.style.display = "none";
+  }  
+  dialog.showModal();
 
-  winDialog.showModal();
-}
-
-// * Función que muestra el diálogo de empate
-function showDialogTie() {  
-  // ? Ocultar el contenido de ganador y mostrar el de empate
-  winnerContent.style.display = "none";
-  tieContent.style.display = "block";
-
-  winDialog.showModal();
 }
 
 // * Función que cierra el diálogo y reinicia el juego
 function closeDialog() {
-  winDialog.close();
+  dialog.close();
   resetGame();
 }
 
@@ -220,9 +223,9 @@ function play() {
   if (winner) {
     winner === "x" ? xWins++ : oWins++;
     updateScore();
-    showDialogWinner();
+    showDialog(winner);
   } else if (checkTie()) {
-    showDialogTie();
+    showDialog(winner);
   } else {
     currentPlayer = nextPlayer(stateTable);
     nextPlayerElement.innerHTML = currentPlayer;
@@ -316,7 +319,7 @@ function checkTie() {
 }
 
 // ? He borrado el código por que ya no es necesario
-// TODO Añadir eventos onClick a cada casilla del tablero
+// Añadir eventos onClick a cada casilla del tablero
 // for (let i = 0; i < table.rows.length; i++) {
 //   for (let j = 0; j < table.rows[i].cells.length; j++) {
 //     table.rows[i].cells[j].onclick = onClick;

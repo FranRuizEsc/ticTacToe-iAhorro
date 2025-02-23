@@ -1,98 +1,217 @@
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.scss" />
-    <!-- Link para usar fuentes de google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Link para usar iconos de font awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
 
-  <body>
-    <div class="game-table-container">
-      <div class="game-table-wrapper">
-        <h1 class="game-title">tic tac toe</h1>
-        <div class="game-subtitle-separator"></div>
-        <span
-          id="start-game-subtitle"
-          class="game-subtitle game-subtitle--start"
-          >¡Empezamos!</span
-        >
-        <span
-          id="next-player-subtitle"
-          class="game-subtitle game-subtitle--next-player"
-          >Turno de: <span id="next-player"></span
-        ></span>
-        <table id="game-table" class="game-table"></table>
-        <div class="table-info-container">
-          <div class="toggle-images-container">
-            <button
-              id="toggle-images-button"
-              class="toggle-images-button"
-              onclick="toggleImages()"
-            >
-              Cambia el color
-            </button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Link para usar fuentes de google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <!-- Link para usar iconos de font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+  <div class="game-table-container">
+    <div class="game-table-wrapper">
+      <h1 class="game-title">tic tac toe</h1>
+      <div class="game-subtitle-separator"></div>
+      <span id="start-game-subtitle" class="game-subtitle game-subtitle--start">¡Empezamos!</span>
+      <span id="next-player-subtitle" class="game-subtitle game-subtitle--next-player">Turno de: <span
+          id="next-player"></span></span>
+      <table id="game-table" class="game-table"></table>
+      <div class="table-info-container">
+        <div class="toggle-images-container">
+          <button id="toggle-images-button" class="toggle-images-button" onclick="toggleImages()">
+            Cambia el color
+          </button>
+        </div>
+        <p class="info-title">Puntuación</p>
+        <div class="info-score-container">
+          <div class="info-score-item">
+            <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/x.png" class="icon" />
+            <p class="score-item">- <span id="x-wins">0</span></p>
           </div>
-          <p class="info-title">Puntuación</p>
-          <div class="info-score-container">
-            <div class="info-score-item">
-              <img
-                src="http://cdn.iahorro.com/internal-resources/it-technical-test/x.png"
-                class="icon"
-              />
-              <p class="score-item">- <span id="x-wins">0</span></p>
-            </div>
-            <div class="info-score-item">
-              <img
-                src="http://cdn.iahorro.com/internal-resources/it-technical-test/o.png"
-                class="icon"
-              />
-              <p class="score-item">- <span id="o-wins">0</span></p>
-            </div>
+          <div class="info-score-item">
+            <img src="http://cdn.iahorro.com/internal-resources/it-technical-test/o.png" class="icon" />
+            <p class="score-item">- <span id="o-wins">0</span></p>
           </div>
         </div>
-        <button
-          id="new-game-button"
-          class="new-game-button"
-          onclick="resetGame()"
-        >
-          Nuevo juego
-        </button>
       </div>
+      <button id="new-game-button" class="new-game-button" onclick="resetGame()">
+        Nuevo juego
+      </button>
     </div>
+  </div>
 
-    <dialog id="dialog" class="dialog">
-      <div class="dialog-container">
-        <div class="dialog-wrapper">
-          <h2 id="dialog-title" class="dialog-title"></h2>
-          <img
-            id="dialog-image"
-            src=""
-            alt="Ganador"
-            class="win-dialog-image"
-          />
-        </div>
-        <i id="dialog-icon" class="dialog-icon"></i>
-        <p id="dialog-subtitle" class="dialog-subtitle"></p>
+  <dialog id="dialog" class="dialog">
+    <div class="dialog-container">
+      <div class="dialog-wrapper">
+        <h2 id="dialog-title" class="dialog-title"></h2>
+        <img id="dialog-image" src="" alt="Ganador" class="win-dialog-image" />
       </div>
-      <div class="dialog-button-container">
-        <button class="dialog-button" onclick="closeDialog()">
-          Jugar otra
-        </button>
-      </div>
-    </dialog>
+      <i id="dialog-icon" class="dialog-icon"></i>
+      <p id="dialog-subtitle" class="dialog-subtitle"></p>
+    </div>
+    <div class="dialog-button-container">
+      <button class="dialog-button" onclick="closeDialog()">
+        Jugar otra
+      </button>
+    </div>
+  </dialog>
 
-    <script src="javascript.js"></script>
-  </body>
+  <script src="javascript.js"></script>
+
+
+  <div class="analysis-container">
+    <h1>Análisis y Explicaciones</h1>
+
+    <h2>Procesador de estilos utilizado:</h2>
+    <ul>
+      <li>Utilicé <code>SCSS</code>, me parece la mejor sintaxis, más clara y limpia.</li>
+    </ul>
+
+    <h2>Análisis del código y cambios realizados:</h2>
+    <ul>
+      <li>Cambié la estructura del código de <code>JavaScript</code> para que fuera más legible y fácil de escalar y
+        mantener.</li>
+      <li>Con el código suelto cree funciones para mejorar la calidad y poder reutilizarlo en caso de ser necesario y
+        eliminé el innecesario.</li>
+      <li>Cree la función <code>initialBoard()</code> con el código suelto:</li>
+    </ul>
+
+    <pre><code>
+let table = document.getElementById("game-table");
+for (let i = 0; i < table.rows.length; i++) {
+    for (let j = 0; j < table.rows[i].cells.length; j++) {
+        table.rows[i].cells[j].onclick = function() {
+            if (state[i][j] === null && winner === null) {
+                state[i][j] = currentPlayer;
+                this.innerHTML = currentPlayer;
+                winner = findWinner(state);
+                if (winner === 'x') {
+                    xWins++;
+                    alert("X wins!");
+                } else if (winner === 'o') {
+                    oWins++;
+                    alert("O wins!");
+                } else {
+                    currentPlayer = nextPlayer(state);
+                    document.getElementById("next-player").innerHTML = currentPlayer;
+                }
+                document.getElementById("x-wins").innerHTML = xWins;
+                document.getElementById("o-wins").innerHTML = oWins;
+            }
+        }
+    }
+}
+    </code></pre>
+
+    <ul>
+      <li><code>onClick()</code> le cambie el nombre por <code>handleClick()</code> para que fuera más descriptivo.
+        Llamé a esta función al manejar el click puesto que hacia lo mismo que el código anterior y no se duplica.
+        También modifiqué la función <code>handleClick()</code>, moviendo la lógica que chequea el ganador y el empate,
+        ya que esa funcionalidad ahora se maneja en la función <code>handleTurn()</code>, anteriormente llamada
+        <code>play()</code>, para hacer el nombre más descriptivo.</li>
+      <li><code>findWinner()</code> simplifiqué la forma de chequear las filas y las columnas usando solo un bucle
+        <code>for</code>, para las filas pongo en <code>i</code> en el primer index y para las columnas lo introduzco en
+        el segundo. Para las diagonales, unifico los <code>if</code> en uno para simplificar el código y devuelvo como
+        ganador <code>state[1][1]</code> puesto que vale para las dos diagonales. Hago los <code>return</code> después
+        de cada comprobación para detener la ejecución si se cumple la condición. Si no se cumple ninguna condición,
+        devuelve un <code>null</code> para no parar la partida.</li>
+      <li><code>nextPlayer()</code> simplifiqué la lógica, aplané la matriz y la convertí en un array. Luego lo recorrí
+        una vez filtrando las <code>"x"</code> y otra para las <code>"o"</code> contabilizando ambas para luego poder
+        hacer la comprobación de si son iguales devuelvo la <code>"x"</code> y si no la <code>"o"</code>. Cambié el
+        <code>if</code> por un ternario, porque me pareció más legible.</li>
+      <li><code>populate()</code>, cree una condición que comprueba si hay una tabla y si no la hay, imprime un
+        <code>console log</code> indicando un error. Cambié los bucles <code>for</code> por <code>forEach</code>, porque
+        me parece más legible. También aproveché para añadir clases a las filas y a las celdas para cambiar los estilos
+        más específicamente.</li>
+      <li>El botón para empezar un "juego nuevo" se crea directamente en el <code>HTML</code>, puesto que siempre será
+        visible y mejora el rendimiento. Además desde el <code>HTML</code> manejo el click eliminando así el código
+        repetido que se está llamando en la función <code>reset()</code> que es a la que llamo desde el click. El código
+        eliminado es:</li>
+    </ul>
+
+    <pre><code>
+let newGameButton = document.createElement("button");
+newGameButton.innerHTML = "Nuevo juego";
+newGameButton.onclick = function() {
+    state = [
+        [ null, null, null ],
+        [ null, null, null ],
+        [ null, null, null ]
+    ];
+    currentPlayer = 'x';
+    winner = null;
+    for (let i = 0; i < table.rows.length; i++) {
+        for (let j = 0; j < table.rows[i].cells.length; j++) {
+            table.rows[i].cells[j].innerHTML = "";
+        }
+    }
+    document.getElementById("next-player").innerHTML = currentPlayer;
+}
+document.body.prepend(newGameButton);
+    </code></pre>
+
+    <ul>
+      <li>Parte del código que estaba situado al final del todo la eliminé, puesto que estaba repetido:</li>
+    </ul>
+
+    <pre><code>
+for (let i = 0; i < table.rows.length; i++) {
+    for (let j = 0; j < table.rows[i].cells.length; j++) {
+        table.rows[i].cells[j].onclick = onClick;
+    }
+}
+    </code></pre>
+
+    <ul>
+      <li>Cree variables y constantes globales, puesto que se usaban en varios sitios, haciéndolo más reutilizables y
+        fáciles de leer.</li>
+    </ul>
+
+    <h2>Para el botón de cambiar el color:</h2>
+    <ul>
+      <li>Cree varias funciones para manejar el cambio de color o en este caso cambiar las imágenes mostradas según la
+        selección.</li>
+      <li>Hice unas constantes globales con cada imagen para que fuera más fácil su manejo. Una vez hecho esto, cree una
+        función para obtener las imágenes actuales, <code>getCurrentImages()</code>.</li>
+      <li>Luego cree la función que maneja el cambio de las imágenes en sí, <code>toggleImages()</code>, lo que hace es
+        determinar si se están usando las imágenes alternativas o no, una vez comprobado esto, obtiene las imágenes
+        correspondientes asignándoselas a cada jugador.</li>
+      <li>Se llama a la función <code>updateCellColor()</code>, que actualiza el color de fondo de la celda.</li>
+      <li>Con los <code>querySelectors</code> del final se actualizan las imágenes en el marcador del tablero y
+        <code>nextPlayerElement</code> actualiza la imagen del siguiente jugador.</li>
+      <li>Para actualizar el color de fondo de cada celda según corresponda cree <code>updateCellColor()</code>, primero
+        limpia las celdas por si tuvieran alguna clase y luego se le añade una clase nueva según sea alternativa o no.
+      </li>
+    </ul>
+
+    <h2>Para cambiar el subtítulo:</h2>
+    <ul>
+      <li>Si la partida aún no ha empezado, muestra el subtítulo "¡Empezamos!", para esto cree una función que hace que
+        muestre el <code>span</code> con este título y oculte el subtítulo de "Siguiente jugador". Llamo a esta función
+        al principio y cada vez que se resetea el juego.</li>
+      <li>Para el subtítulo de "Turno de:" hago lo mismo, oculto el primer subtítulo con los estilos y actualizo la
+        imagen según corresponda. Esta función la llamo en <code>handleTurn()</code> porque una vez que se clicka una
+        casilla muestra el turno.</li>
+    </ul>
+
+    <h2>Diálogos de victoria y empate:</h2>
+    <ul>
+      <li>A mayores cree unos diálogos que muestro según se gane o empate.</li>
+      <li>En el diálogo de ganador muestro la imagen del ganador y en el de empate solo muestra texto.</li>
+      <li>Al pulsar en el botón en ambos diálogos se reinicia el juego.</li>
+      <li>Para manejar cada diálogo, cree una función que comprueba si hay un ganador o no, y rellena cada elemento del
+        diálogo según corresponda.</li>
+    </ul>
+    <h3>En el códgo hay comentarios explicativos de algunas mejoras.</h3>
+  </div>
+</body>
+
 </html>

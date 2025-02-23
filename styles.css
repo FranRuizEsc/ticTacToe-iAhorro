@@ -1,13 +1,10 @@
-/* Crear variables para colores y margenes tipografias .... Y CAMBIAR A SCSS */
 
 html {
-  height: 100%;
-  overflow: auto;
+  margin: 20px;
 }
 
 body {
   display: flex;
-  /* justify-content: center; */
   flex-direction: column;
   height: 100%;
   align-items: center;
@@ -77,6 +74,11 @@ td {
   text-align: center;
   vertical-align: middle;
 }
+
+td:focus {
+  background-color: red;
+}
+
 
 .x-cell {
   background-color: #e5fffa;
@@ -274,8 +276,10 @@ i.dialog-icon {
 
 .analysis-container {
   font-family: "Montserrat", serif;
-  line-height: 1.6;
-  margin: 20px;
+	line-height: 1.6;
+	margin: 20px;
+	padding: 20px;
+	background-color: #93d6c8;
 }
 
 code {
@@ -283,8 +287,6 @@ code {
   padding: 2px 4px;
   border-radius: 4px;
   font-family: monospace;
-  color: #29ddb9;
-  font-weight: 500;
 }
 
 pre {

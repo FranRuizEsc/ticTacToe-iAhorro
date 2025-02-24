@@ -246,17 +246,17 @@
 		<h2>Para cambiar el subtítulo:</h2>
 		<ul>
 			<li>
-				Si la partida aún no ha empezado, muestra el subtítulo "¡Empezamos!",
-				para esto cree una función que hace que muestre el
-				<code>span</code> con este título y oculte el subtítulo de "Siguiente
-				jugador". Llamo a esta función al principio y cada vez que se resetea
-				el juego.
+				Cree una función para manejar el subtitulo que se debe mostrar, <code>handleSubtitle()</code>.
 			</li>
 			<li>
-				Para el subtítulo de "Turno de:" hago lo mismo, oculto el primer
-				subtítulo con los estilos y actualizo la imagen según corresponda.
-				Esta función la llamo en <code>handleTurn()</code> porque una vez que
-				se clicka una casilla muestra el turno.
+				Cuando aún no ha hecho ningun movimiento o se reinicia el tablero, se envia un true y se muestra el
+				startSubtitle y se oculta el <code>nextPlayerSubtitle</code>.
+			</li>
+			<li>
+				Al hacer algún movimiento se hace lo contrario a lo anterior.
+			</li>
+			<li>
+				Sólo en el subtitulo de nextPlayer se setea la imagen de del jugador.
 			</li>
 		</ul>
 

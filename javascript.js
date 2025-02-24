@@ -118,18 +118,15 @@ function populate(state) {
 	});
 }
 
-// * Función para inicializar los subtitulos y mostrar !empezamos!
-function initializeSubtitles() {
-	startSubtitle.style.display = "block";
-	nextPlayerSubtitle.style.display = "none";
-}
-
-// * Función para actualizar el subtitulo de siguiente jugador y mostrar la imagen del jugador
-function updateNextPlayerDisplay() {
-	startSubtitle.style.display = "none";
-	nextPlayerSubtitle.style.display = "block";
-	const currentImages = getCurrentImages();
-	nextPlayerElement.innerHTML = `<img src="${currentImages[currentPlayer]}" class="player-icon">`;
+// * Función para gestionar los subtitulos.
+function handleSubtitle(isInnitialSubtitle){
+	startSubtitle.style.display = isInnitialSubtitle ? "block" : "none";
+	nextPlayerSubtitle.style.display = isInnitialSubtitle ? "none" : "block";
+	
+	if(!isInnitialSubtitle){
+		const currentImages = getCurrentImages();	
+		nextPlayerElement.innerHTML = `<img src="${currentImages[currentPlayer]}" class="player-icon">`;
+	}
 }
 
 // * Función para determinar si hay un ganador en el juego actual
@@ -223,7 +220,7 @@ function handleTurn() {
 		currentPlayer = nextPlayer(stateTable);
 		nextPlayerElement.innerHTML = currentPlayer;
 	}
-	updateNextPlayerDisplay();
+	handleSubtitle(false);
 }
 
 // * Función para manejar el evento onClick
@@ -265,7 +262,7 @@ function resetGame() {
 	});
 
 	// ? Inicializa los subtitulos
-	initializeSubtitles();
+	handleSubtitle(true);
 }
 
 // * Asociar eventos a cada casilla del tablero
@@ -335,7 +332,7 @@ function handleKeyboardNavigation() {
 
 populate(stateTable);
 newGameButton.disabled = true;
-initializeSubtitles();
+handleSubtitle(true);
 initializeGameBoard();
 handleKeyboardNavigation();
 

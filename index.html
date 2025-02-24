@@ -121,48 +121,45 @@
 		<ul>
 			<li>
 				<code>onClick()</code> le cambie el nombre por
-				<code>handleClick()</code> para que fuera más descriptivo. Llamé a
-				esta función al manejar el click puesto que hacia lo mismo que el
-				código anterior y no se duplica. También modifiqué la función
-				<code>handleClick()</code>, moviendo la lógica que chequea el ganador
+				<code>handleClick()</code> para que fuera más descriptivo. <br>
+				Llamé a	esta función al manejar el click puesto que hacia lo mismo que el
+				código anterior y no se duplica. <br>
+				También modifiqué la función <code>handleClick()</code>, moviendo la lógica que chequea el ganador
 				y el empate, ya que esa funcionalidad ahora se maneja en la función
 				<code>handleTurn()</code>, anteriormente llamada <code>play()</code>,
 				para hacer el nombre más descriptivo.
 			</li>
 			<li>
-				<code>findWinner()</code> simplifiqué la forma de chequear las filas y
-				las columnas usando solo un bucle <code>for</code>, para las filas
-				pongo en <code>i</code> en el primer index y para las columnas lo
-				introduzco en el segundo. Para las diagonales, unifico los
-				<code>if</code> en uno para simplificar el código y devuelvo como
-				ganador <code>state[1][1]</code> puesto que vale para las dos
-				diagonales. Hago los <code>return</code> después de cada comprobación
-				para detener la ejecución si se cumple la condición. Si no se cumple
-				ninguna condición, devuelve un <code>null</code> para no parar la
-				partida.
+				<code>findWinner()</code> modifiqué el código para no repetir tantos condicionales <code>if</code>.<br>
+				Para esto cree una matriz con todas las combinaciones ganadoras posibles. Recorro esta matriz y desgloso
+				cada línea en celdas correspondientes a cada fila y columna.<br>
+				Por último, hago la comprobación de las tres celdas tienen el mismo valor y si lo tienen devuelvo el
+				ganador.
 			</li>
 			<li>
 				<code>nextPlayer()</code> simplifiqué la lógica, aplané la matriz y la
-				convertí en un array. Luego lo recorrí una vez filtrando las
-				<code>"x"</code> y otra para las <code>"o"</code> contabilizando ambas
+				convertí en un array. <br>
+				Luego lo recorro una vez filtrando las <code>"x"</code> y otra para las <code>"o"</code> contabilizando ambas
 				para luego poder hacer la comprobación de si son iguales devuelvo la
-				<code>"x"</code> y si no la <code>"o"</code>. Cambié el
-				<code>if</code> por un ternario, porque me pareció más legible.
+				<code>"x"</code> y si no la <code>"o"</code>. <br>
+				Cambié el <code>if</code> por un ternario, porque me pareció más legible.
 			</li>
 			<li>
 				<code>populate()</code>, cree una condición que comprueba si hay una
 				tabla y si no la hay, imprime un <code>console log</code> indicando un
-				error. Cambié los bucles <code>for</code> por <code>forEach</code>,
-				porque me parece más legible. También aproveché para añadir clases a
-				las filas y a las celdas para cambiar los estilos más específicamente.
+				error. <br>
+				Cambié los bucles <code>for</code> por <code>forEach</code>,
+				porque me parece más legible. <br>
+				También aproveché para añadir clases a las filas y a las celdas para cambiar los estilos más específicamente.
 			</li>
 			<li>
 				El botón para empezar un "juego nuevo" se crea directamente en el
 				<code>HTML</code>, puesto que siempre será visible y mejora el
-				rendimiento. Además desde el <code>HTML</code> manejo el click
+				rendimiento. <br>
+				Además desde el <code>HTML</code> manejo el click
 				eliminando así el código repetido que se está llamando en la función
-				<code>reset()</code> que es a la que llamo desde el click. El código
-				eliminado es:
+				<code>reset()</code> que es a la que llamo desde el click. <br>
+				El código eliminado es:
 			</li>
 		</ul>
 

@@ -22,6 +22,11 @@ $color-light-green: #e0f7f3;
 $color-code: #be3030;
 $disabled-color: #dfe0e0;
 
+$background-color-cell-green: #e5fffa;
+$background-color-cell-red: #fff3f2;
+$background-color-cell-yellow: #faf3db;
+$background-color-cell-grey: #edf0f5;
+
 $border-green: 1px solid $color-green;
 
 $border-radius-3: 3px;
@@ -119,6 +124,19 @@ body {
 						box-shadow: 0 2px 4px 0 rgba(121, 122, 122, 0.4);
 						cursor: pointer;
 
+						&:focus {
+							border: 1px solid $color-green;
+							outline: none;
+						}
+
+						&:hover {
+							border: 1px solid $color-green;
+						}
+						
+						&.line-winner {
+							background-color:$color-green;
+						}
+
 						img {
 							width: 56px;
 							height: 56px;
@@ -126,19 +144,19 @@ body {
 					}
 
 					.x-cell {
-						background-color: #e5fffa;
+						background-color: $background-color-cell-green;
 					}
 
 					.o-cell {
-						background-color: #fff3f2;
+						background-color: $background-color-cell-red;
 					}
 
 					.x-cell-alternative {
-						background-color: #faf3db;
+						background-color: $background-color-cell-yellow;
 					}
 
 					.o-cell-alternative {
-						background-color: #edf0f5;
+						background-color: $background-color-cell-grey;
 					}
 				}
 			}
@@ -302,6 +320,7 @@ body {
 	margin: 20px;
 	padding: 20px;
 	background-color: $color-light-green;
+	border-radius: $border-radius-8;
 
 	code {
 		background-color: $color-light-grey;

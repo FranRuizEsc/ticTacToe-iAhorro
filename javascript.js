@@ -134,41 +134,44 @@ function updateNextPlayerDisplay() {
 
 // * Función para determinar si hay un ganador en el juego actual
 function findWinner(state) {
-	// ? Chequear filas y columnas juntas
-	// ? Hago el return cada if para que no se siga ejecutando el bucle
 
-	// ? Para las filas introduzco el index en el primer parametro de state[i]
-	for (let i = 0; i < 3; i++) {
-		// ? Devuelve el ganador en una fila
-		if (
-			state[i][0] &&
-			state[i][0] === state[i][1] &&
-			state[i][1] === state[i][2]
-		) {
-			return state[i][0];
-		}
+	// ? Array con las lineas ganadoras para evitar hacer tantas comprobaciones
+	const winningLines = [
+        [[0, 0], [0, 1], [0, 2]],
+        [[1, 0], [1, 1], [1, 2]],
+        [[2, 0], [2, 1], [2, 2]],
+        [[0, 0], [1, 0], [2, 0]],
+        [[0, 1], [1, 1], [2, 1]],
+        [[0, 2], [1, 2], [2, 2]],
+        [[0, 0], [1, 1], [2, 2]],
+        [[0, 2], [1, 1], [2, 0]]
+    ];
 
-		// ? Para las columnas introduzco el index en el segundo parametro de state[0][i]
-		// ? Devuelve el ganador en una columna
-		if (
-			state[0][i] &&
-			state[0][i] === state[1][i] &&
-			state[1][i] === state[2][i]
-		) {
-			return state[0][i];
-		}
-	}
+	// ? Recorro el array de lineas ganadoras
+    for (const line of winningLines) {
+		// ? Desgloso la linea ganadora en sus 3 celdas
+        const [[r1, c1], [r2, c2], [r3, c3]] = line;
+		// ? Compruebo si las 3 celdas tienen el mismo valor y son iguales
+        if (state[r1][c1] && state[r1][c1] === state[r2][c2] && state[r2][c2] === state[r3][c3]) {
+            highlightWinner(line);
+			// ? Devuelvo el valor de la celda ganadora
+            return state[r1][c1];
+        }
+    }
 
-	// ? Chequear diagonales
-	if (
-		(state[0][0] === state[1][1] && state[1][1] === state[2][2]) ||
-		(state[0][2] === state[1][1] && state[1][1] === state[2][0])
-	) {
-		// ? Devuelve el ganador en una diagonal
-		return state[1][1];
-	}
+    return null;
+}
 
-	return null;
+// * Función para resaltar la linea ganadora
+function highlightWinner(cells){
+	if (!cells) return null;
+
+	// ? Recorro el array de celdas y añado la clase line-winner a cada una
+	cells.forEach(([row, col]) => {
+		console.log('row', row);
+		console.log('col', col);
+		table.rows[row].cells[col].classList.add('line-winner');
+	});
 }
 
 // * Función para actualizar el marcador
@@ -257,13 +260,12 @@ function resetGame() {
 	// ! y resetaer los valores de cada celda
 	Array.from(table.getElementsByTagName("td")).forEach((cell) => {
 		cell.innerHTML = "";
+		cell.classList.remove('line-winner');
 		clearCellClasses(cell);
 	});
 
 	// ? Inicializa los subtitulos
 	initializeSubtitles();
-
-	nextPlayerElement.innerHTML = currentPlayer;
 }
 
 // * Asociar eventos a cada casilla del tablero

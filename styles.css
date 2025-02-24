@@ -85,6 +85,9 @@ td:hover {
   border: 1px solid #29ddb9;
 }
 
+td.line-winner {
+  background-color: #29ddb9;
+}
 
 .x-cell {
   background-color: #e5fffa;

@@ -76,7 +76,13 @@ td {
 }
 
 td:focus {
-  background-color: red;
+  border: 1px solid #29ddb9;
+  outline: none;
+  
+}
+
+td:hover {
+  border: 1px solid #29ddb9;
 }
 
 
@@ -279,7 +285,8 @@ i.dialog-icon {
 	line-height: 1.6;
 	margin: 20px;
 	padding: 20px;
-	background-color: #93d6c8;
+	background-color: #e0f7f3;
+  border-radius: 8px;
 }
 
 code {
@@ -287,6 +294,7 @@ code {
   padding: 2px 4px;
   border-radius: 4px;
   font-family: monospace;
+  color:  #be3030
 }
 
 pre {

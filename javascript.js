@@ -230,9 +230,8 @@ function handleClick() {
 	newGameButton.disabled = false;
 	if (this.innerHTML === "" && winner === null) {
 		const currentImages = getCurrentImages();
-		this.innerHTML = `<img src="${
-			currentPlayer === "x" ? currentImages.x : currentImages.o
-		}" alt="${currentPlayer}">`;
+		this.innerHTML = `<img src="${currentPlayer === "x" ? currentImages.x : currentImages.o
+			}" alt="${currentPlayer}">`;
 
 		updateCellColor(this, currentPlayer);
 
@@ -273,13 +272,74 @@ function initializeGameBoard() {
 	for (let i = 0; i < table.rows.length; i++) {
 		for (let j = 0; j < table.rows[i].cells.length; j++) {
 			// ? Asocio el evento onClick a la función handleClick por que he adaptado a la nueva funcionalidad y hace lo mismo
-			// ? así no duplico código y es más escalable y reutilizable
+			// ? así no duplico código y es más escalable y reutilizable.
 			table.rows[i].cells[j].onclick = handleClick;
+
+			// ? Asigno tabindex 0 a cada celda para que se pueda navegar con el tablero.
+			table.rows[i].cells[j].setAttribute("tabindex", "0");
+
+			// ? Asigno el evento keydown enter a cada celda para que agregue la imagen correspondiente.
+			table.rows[i].cells[j].addEventListener("keydown", (event) => {
+				if (event.key === "Enter") {
+					handleClick.call(table.rows[i].cells[j]);
+				}
+			});
 		}
 	}
+}
+
+// * Función para manejar la navegación por el tablero con el teclado
+function handleKeyboardNavigation() {
+	if (!table) return;
+	
+	let currentRow = 0;
+	let currentColumn = 0;
+
+	table.addEventListener("keydown", (event) => {
+		const rows = table.rows;
+		const currentCells = rows[currentRow].cells;
+
+		switch (event.key) {
+			case "ArrowUp":
+				// ? Comprueba si la fila actual no es la primera y si es así resta 1 a la fila actual
+				if (currentRow > 0) {
+					currentRow--;
+				}
+				break;
+			case "ArrowDown":
+				// ? Comprueba si la fila actual no es la última y si es así suma 1 a la fila actual
+				if (currentRow < rows.length - 1) {
+					currentRow++;
+				}
+				break;
+			case "ArrowLeft":
+				// ? Comprueba si la columna actual no es la primera y si es así resta 1 a la columna actual
+				if (currentColumn > 0) {
+					currentColumn--;
+				}
+				break;
+			case "ArrowRight":
+				// ? Comprueba si la columna actual no es la última y si es así suma 1 a la columna actual
+				if (currentColumn < currentCells.length - 1) {
+					currentColumn++;
+				}
+				break;
+		}
+
+		// ? Se añade el foco a la celda que está en la posición actual
+		rows[currentRow].cells[currentColumn].focus();
+	});
 }
 
 populate(stateTable);
 newGameButton.disabled = true;
 initializeSubtitles();
 initializeGameBoard();
+handleKeyboardNavigation();
+
+// * Evita que se cierre el diálogo automaticamente cuando se esta pulsando enter en el tablero.
+document.addEventListener("keydown", (event) => {
+	if (event.key === "Enter" && dialog.open) {
+		event.preventDefault();
+	}
+});

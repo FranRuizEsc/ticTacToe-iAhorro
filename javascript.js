@@ -16,6 +16,7 @@ const oWinsElement = document.getElementById("o-wins");
 const newGameButton = document.getElementById("new-game-button");
 const nextPlayerElement = document.getElementById("next-player");
 const dialog = document.getElementById("dialog");
+const dialogIcon = document.getElementById("dialog-icon");
 
 let isAlternativeImages = false;
 let stateTable = createNewStateTable();
@@ -165,8 +166,6 @@ function highlightWinner(cells){
 
 	// ? Recorro el array de celdas y añado la clase line-winner a cada una
 	cells.forEach(([row, col]) => {
-		console.log('row', row);
-		console.log('col', col);
 		table.rows[row].cells[col].classList.add('line-winner');
 	});
 }
@@ -181,8 +180,7 @@ function updateScore() {
 function showDialog(winner) {
 	// ? No hago estas constantes globales por que no se van a usar fuera de la función
 	const dialogTitle = document.getElementById("dialog-title");
-	const dialogSubtitle = document.getElementById("dialog-subtitle");
-	const dialogIcon = document.getElementById("dialog-icon");
+	const dialogSubtitle = document.getElementById("dialog-subtitle");	
 	const images = getCurrentImages();
 	const image = dialog.querySelector("img");
 
@@ -202,6 +200,7 @@ function showDialog(winner) {
 
 // * Función que cierra el diálogo y reinicia el juego
 function closeDialog() {
+	dialogIcon.classList.remove("fa-solid", "fa-scale-balanced", "fas", "fa-glass-cheers");
 	dialog.close();
 	resetGame();
 }

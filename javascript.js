@@ -17,6 +17,7 @@ const newGameButton = document.getElementById("new-game-button");
 const nextPlayerElement = document.getElementById("next-player");
 const dialog = document.getElementById("dialog");
 const dialogIcon = document.getElementById("dialog-icon");
+const dialogImage = dialog.querySelector("img");
 
 let isAlternativeImages = false;
 let stateTable = createNewStateTable();
@@ -181,25 +182,25 @@ function showDialog(winner) {
 	// ? No hago estas constantes globales por que no se van a usar fuera de la función
 	const dialogTitle = document.getElementById("dialog-title");
 	const dialogSubtitle = document.getElementById("dialog-subtitle");	
-	const images = getCurrentImages();
-	const image = dialog.querySelector("img");
+	const images = getCurrentImages();	
 
 	if (winner) {
 		dialogTitle.innerHTML = "¡Felicidades!";
 		dialogSubtitle.innerHTML = "Has ganado el juego.";
 		dialogIcon.classList.add("fas", "fa-glass-cheers");
-		image.src = winner === "x" ? images.x : images.o;
+		dialogImage.src = winner === "x" ? images.x : images.o;
 	} else {
 		dialogTitle.innerHTML = "¡Empate!";
 		dialogSubtitle.innerHTML = "Inténtalo de nuevo.";
 		dialogIcon.classList.add("fa-solid", "fa-scale-balanced");
-		image.style.display = "none";
+		dialogImage.classList.add('hidden');
 	}
 	dialog.showModal();
 }
 
 // * Función que cierra el diálogo y reinicia el juego
 function closeDialog() {
+	dialogImage.classList.remove('hidden');
 	dialogIcon.classList.remove("fa-solid", "fa-scale-balanced", "fas", "fa-glass-cheers");
 	dialog.close();
 	resetGame();

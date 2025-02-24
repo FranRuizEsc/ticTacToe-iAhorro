@@ -130,6 +130,8 @@ body {
 						}
 
 						&:hover {
+							width: 105px;
+							height: 105px;
 							border: 1px solid $color-green;
 						}
 						
@@ -271,6 +273,10 @@ body {
 			.win-dialog-image {
 				height: 32px;
 				width: 32px;
+				
+				&.hidden {
+					display: none;
+				}
 			}
 		}
 

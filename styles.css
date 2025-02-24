@@ -244,6 +244,10 @@ button:hover {
   width: 32px;
 }
 
+.hidden {
+  display: none;
+}
+
 i.dialog-icon {
   height: 56px;
   width: 100%;
